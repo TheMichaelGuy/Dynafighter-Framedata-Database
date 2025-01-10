@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="BattleApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battle Calculator</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="/js/battleApp.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <img id="background" src="/images/Battle Stage.png" style="display:none;">
+</head>
+<body ng-controller="BattleController" class="bgcpage">
+  <div class="bgc-container">
+
+    <div class="left-panel">
+      <h2>Select Move (Knockback)</h2>
+      <select ng-model="selectedMove" ng-options="move as move.AttackName for move in attackData">
+        <option value="">-- Select a Move --</option>
+      </select>
+      <div ng-if="selectedMove">
+        <img ng-src="/images/animationframes/{{characterName}}/{{selectedMove.AttackName}}{{selectedMove.IconicFrame}}.svg" alt="{{selectedMove.AttackName}}">
+        <p ng-if="selectedMove.AttackID > 11">{{selectedMove.AttackName}} *</p>
+        <p ng-if="selectedMove.AttackID <= 11">{{selectedMove.AttackName}}</p>
+      </div>
+
+      <h2>Adjust Variables</h2>
+      <h3>Positioning</h3>
+
+      <div class="bgcslider">      
+      <label for="targetPercent">Target %:</label>
+      <input type="range" id="targetPercent" ng-model="targetPercent" min="0" max="300">
+      <!--<input type="text" id="targetPercent" ng-model="targetPercent" min="0" max="300">-->
+      <span>{{targetPercent}}</span></div>
+
+      <div class="bgcslider">      
+      <label for="xpos">X Position:</label>
+      <input type="range" id="xpos" ng-model="xpos" min="-320" max="320">
+      <span>{{xpos}}</span></div>
+      
+      <div class="bgcslider">
+      <label for="ypos">Y Position:</label>
+      <input type="range" id="ypos" ng-model="ypos" min="-180" max="180">
+      <span>{{ypos}}</span>
+      </div>
+      <h3>Stat Scale</h3>
+      <div class="bgcslider">
+      <label for="scaleBK">Base Knockback:</label>
+      <input type="range" id="scaleBK" ng-model="scaleBK" min="0" max="2" step="0.01">
+      <span>{{scaleBK}}</span>
+      </div>
+
+      <div class="bgcslider">
+      <label for="scaleRK">Rising Knockback:</label>
+      <input type="range" id="scaleRK" ng-model="scaleRK" min="0" max="2" step="0.01">
+      <span>{{scaleRK}}</span>
+      </div>
+
+      <div class="bgcslider">
+      <label for="scaleBH">Base Hitstun:</label>
+      <input type="range" id="scaleBH" ng-model="scaleBH" min="0" max="2" step="0.01">
+      <span>{{scaleBH}}</span>
+      </div>
+
+      <div class="bgcslider">
+      <label for="scaleRH">Rising Hitstun:</label>
+      <input type="range" id="scaleRH" ng-model="scaleRH" min="0" max="2" step="0.01">
+      <span>{{scaleRH}}</span>
+      </div>
+
+      <div class="bgcslider">
+      <label for="scaleDMG">Damage:</label>
+      <input type="range" id="scaleDMG" ng-model="scaleDMG" min="0" max="2" step="0.01">
+      <span>{{scaleDMG}}</span>
+      </div>
+
+
+    </div>
+
+    <div class="middle-panel">
+
+      <canvas id="battleCanvas" width="640" height="360"></canvas>
+      <div class="button-container">
+        <button ng-click="graphKnockback()">Graph Knockback</button>
+        <button ng-click="graphFollowUp()">Graph FollowUp</button>
+      </div>
+      <div class="button-container">
+        <button ng-click="resetCanvas()">Clear Graph</button>
+        <button ng-click="resetScales()">Reset Variables</button>
+        <button ng-click="mirrorPositioning()">Flip Player</button>
+      </div>
+      <div>
+        <button class="switch-button-red" ng-if="pageType === 'battle-calculator'" ng-click="switchPage('battle-calculator-ruby')">Switch to Ruby Stats</button>
+        <button class="switch-button-blue" ng-if="pageType === 'battle-calculator-ruby'" ng-click="switchPage('battle-calculator')">Switch to Classic Stats</button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Select Move (FollowUp)</h2>
+      <select ng-model="selectedMoveF" ng-options="move as move.AttackName for move in followupData">
+        <option value="">-- Select a Move --</option>
+      </select>
+      <div ng-if="selectedMoveF">
+        <img ng-src="/images/animationframes/{{characterName}}/{{selectedMoveF.AttackName}}{{selectedMoveF.IconicFrame}}.svg" alt="{{selectedMoveF.AttackName}}">
+        <p ng-if="selectedMoveF.AttackID > 11">{{selectedMoveF.AttackName}} *</p>
+        <p ng-if="selectedMoveF.AttackID <= 11">{{selectedMoveF.AttackName}}</p>
+      </div>
+
+      <h2>Adjust Variables</h2>
+      <h3>Toggles</h3>
+      <div class="bgcslider">
+      <label for="LoR">Left or Right?:</label>
+      <input type="range" id="LoR" ng-model="LoR" min="0" max="1">
+      <span>{{LoR}}</span>
+      </div>
+
+      <div class="bgcslider">
+      <label for="blastzone">Special Blastzone?:</label>
+      <input type="range" id="blastzone" ng-model="blastzone" min="0" max="1">
+      <span>{{blastzone}}</span>
+      </div>
+
+      <h3>FollowUp Variables</h3>
+
+      <div class="bgcslider">
+      <label for="EoL">Early or Late Hit?:</label>
+      <input type="range" id="EoL" ng-model="EoL" min="0" max="1">
+      <span>{{EoL}}</span>
+      </div>    
+
+      <div class="bgcslider">      
+        <label for="initialXv">X Velocity:</label>
+        <input type="range" id="initialXv" ng-model="initialXv" min="-6" max="6">
+        <span>{{initialXv}}</span></div>
+
+      <div class="bgcslider">      
+        <label for="initialYv">Y Velocity:</label>
+        <input type="range" id="initialYv" ng-model="initialYv" min="-12" max="12">
+        <span>{{initialYv}}</span></div>
+
+     
+
+      <h3>Data</h3>
+      <span>{{line1}}</span>
+      <span>{{line2}}</span>
+      <span>{{line3}}</span>
+      <span>{{line4}}</span>
+    </div>
+
+  </div>
+</body>
+</html>

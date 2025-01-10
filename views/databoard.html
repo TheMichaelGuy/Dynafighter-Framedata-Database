@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FrameDataModule">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frame Data Display</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>
+  <script src="/js/frameDataApp.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body ng-controller="FrameDataController" class="fddpage">
+  <h1>{{characterName}}</h1>
+<!--  <pre>{{moveData | json}}</pre>
+
+  <div>{{moveData.groundMoves}}</div>
+  <div>{{moveData.airMoves}}</div>
+  <div>{{moveData.specialMoves}}</div>-->
+
+<h2>Ground Moves</h2>
+<div class="move-container">
+  <div ng-repeat="move in moveData.groundMoves" ng-bind-html="generateTable(move)"></div>
+</div>
+
+<h2>Air Moves</h2>
+<div class="move-container">
+  <div ng-repeat="move in moveData.airMoves" ng-bind-html="generateTable(move)"></div>
+</div>
+
+<h2>Special Moves</h2>
+<div class="move-container">
+  <div ng-repeat="move in moveData.specialMoves" ng-bind-html="generateTable(move)"></div>
+</div>
+</body>
+</html>

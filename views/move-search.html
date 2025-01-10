@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #333333;
+            color: orange;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        figure {
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #results {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Move Search</h1>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="sqlInput" class="form-control" placeholder="Enter SQL Statement...">
+            <button id="searchButton" class="btn btn-warning mt-2">Search</button>
+        </div>
+
+        <div id="results">
+            <h2>Search Results</h2>
+            <table id="resultsTable" class="table table-dark table-striped" style="display: none;">
+                <thead>
+                    <tr id="tableHeaderRow">
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script>
+        async function executeQuery() {
+            const sqlStatement = document.getElementById('sqlInput').value;
+
+            try {
+                const response = await fetch('/api/move-search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ sqlStatement }),
+                });
+
+                const data = await response.json();
+
+                const resultsTable = document.getElementById('resultsTable');
+                const tableHeaderRow = document.getElementById('tableHeaderRow');
+                const tableBody = document.getElementById('tableBody');
+
+                tableHeaderRow.innerHTML = '';
+                tableBody.innerHTML = ''; 
+
+                if (response.ok) {
+                    if (data.results && data.results.length > 0) {
+                        resultsTable.style.display = 'table';
+
+                        const columnNames = Object.keys(data.results[0]);
+
+                        columnNames.forEach((colName) => {
+                            const headerCell = document.createElement('th');
+                            headerCell.textContent = colName;
+                            tableHeaderRow.appendChild(headerCell);
+                        });
+
+                        data.results.forEach((row) => {
+                            const tableRow = document.createElement('tr');
+                            columnNames.forEach((colName) => {
+                                const tableCell = document.createElement('td');
+                                tableCell.textContent = row[colName];
+                                tableRow.appendChild(tableCell);
+                            });
+                            tableBody.appendChild(tableRow);
+                        });
+                    } else {
+                        resultsTable.style.display = 'none';
+                        alert('No results found.');
+                    }
+                } else {
+                    alert(data.error || 'Invalid SQL query.');
+                }
+            } catch (error) {
+                console.error('Error executing query:', error);
+                alert('An error occurred while executing the query.');
+            }
+        }
+
+        document.getElementById('searchButton').addEventListener('click', executeQuery);
+    </script>
+</body>
+
+</html>

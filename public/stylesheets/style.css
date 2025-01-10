@@ -1,0 +1,225 @@
+/*Basic Stuff the thing came with*/
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+/* FRAME DATA DISPLAY */
+.fddpage {
+  background: #110b0b;
+  color: #fcfcfc;
+}
+
+.move-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.move-table {
+  border: 2px solid #ddd;
+  border-collapse: collapse;
+  margin: 10px;
+  width: 300px;
+  flex-grow: 2;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fddmovename, .fddstartup, .fddactive, .fddendlag, .fddmobility, .fdddamage, .fddknockback, .fddhitstun, .fddother {
+  border: 1px solid #c7c7c7;
+  padding: 8px;
+  text-align: center;
+  font-size: 100%!important;
+  font-weight: bold;
+}
+
+.fddmovename {
+  background: #2e2e2e;
+  color: #fcfcfc;
+}
+
+.fddstartup {
+  background: #fdd601;
+  color: #2e2e2e;
+}
+
+.fddactive {
+  background: #e60000;
+  color: #fcfcfc;
+}
+
+.fddendlag {
+  background: #11871a;
+  color: #fcfcfc;
+}
+
+.fddmobility {
+  background: #0079f7;
+  color: #fcfcfc;
+}
+
+.fdddamage, .fddknockback, .fddhitstun, .fddother {
+  background: #2e2e2e;
+  color: #fcfcfc;
+}
+
+.fddmovepic img {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+}
+
+/* BATTLE GRAPHING CALCULATOR */
+
+.bgcpage {
+  background: #110b0b;
+  color: #fcfcfc;
+}
+
+.bgc-container {
+  display: flex;
+  height: 100vh;
+  flex-wrap: wrap;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+  margin: 10px 0;
+}
+
+.button-container button{
+  padding: 5px 10px;
+  font-size: 16px;
+
+  background-color: #1846b9;
+  color:#c7c7c7;
+
+  border: #153da2;
+  border-radius: 3px;
+
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.switch-button-blue {
+  background-color: #4771ff; /* New background color */
+  border: 1px solid #174cff; /* New border color */
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #c7c7c7;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.switch-button-red {
+  background-color: #ff5050; /* New background color */
+  border: 1px solid #ff0000; /* New border color */
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #c7c7c7;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+
+.button-container button:hover{
+  background-color: #153da2;
+}
+
+.switch-button-blue:hover {
+  background-color: #174cff;
+}
+
+.switch-button-red:hover {
+  background-color: #ff0000;
+}
+
+.left-panel, .right-panel {
+  flex: 1;
+  min-width: 300px;
+  padding: 10px;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+}
+
+.left-panel {
+  width: 25%;
+  padding: 20px;
+  background: #212121;
+  color: #fcfcfc;
+  border-right: 1px solid #2e2e2e;
+  box-sizing: border-box;
+}
+
+.middle-panel {
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-panel {
+  width: 25%;
+  padding: 20px;
+  background: #212121;
+  color: #fcfcfc;
+  border-left: 1px solid #2e2e2e;
+  box-sizing: border-box;
+}
+
+#battleCanvas {
+  border: 1px solid #2e2e2e;
+  background: #212121;
+  margin-bottom: 20px;
+}
+
+
+
+.bgcpage label, input[type="range"], span {
+  display: block;
+  margin-bottom: 1px;
+}
+
+.bgcpage input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity .2s;
+}
+
+.bgcpage input[type="range"]:hover {
+  opacity: 1;
+}
+
+.bgcpage input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #1846b9;
+  cursor: pointer;
+}
+
+.bgcpage input[type="range"]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #1846b9;
+  cursor: pointer;
+}

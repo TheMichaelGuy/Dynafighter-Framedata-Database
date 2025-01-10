@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AdminModule">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="/js/adminApp.js"></script>
+</head>
+<body ng-controller="AdminController">
+  <h1>Admin Dashboard</h1>
+  <p>Welcome, admin!</p>
+  <p>{{message}}</p>
+
+  <div>
+    <h2>Move Icon Data</h2> 
+    <table border="1"> 
+      <thead> 
+        <tr> 
+          <th>ID</th> 
+          <th>CharacterName</th> 
+          <th>AttackName</th> 
+          <th>AttackID</th> 
+          <th>IconicFrame</th>
+          <th>Actions</th>
+        </tr> 
+      </thead> 
+      <tbody> 
+        <tr ng-repeat="move in moveIdentifiers"> 
+          <td>{{ move.ID }}</td> 
+          <td><input type="text" ng-model="move.CharacterName"></td> 
+          <td><input type="text" ng-model="move.AttackName"></td> 
+          <td><input type="text" ng-model="move.AttackID"></td> 
+          <td><input type="text" ng-model="move.IconicFrame"></td> 
+          <td>
+            <button ng-click="updateMoveI(move)">Update</button>
+            <button ng-click="deleteMoveI(move)">Delete</button>
+          </td>
+        </tr> 
+      </tbody> 
+
+    </table>
+  </div>
+
+  <div>
+    <h2>Add New Move</h2>
+    <form ng-submit="addMoveI()">
+      <label for="characterName">Character Name:</label>
+      <input type="text" id="characterName" ng-model="newMoveI.CharacterName" required>
+      <label for="attackName">Attack Name:</label>
+      <input type="text" id="attackName" ng-model="newMoveI.AttackName" required>
+      <label for="attackID">Attack ID:</label>
+      <input type="text" id="attackID" ng-model="newMoveI.AttackID" required>
+      <label for="iconicFrame">Iconic Frame:</label>
+      <input type="text" id="iconicFrame" ng-model="newMoveI.IconicFrame">
+      <button type="submit">Add Move</button>
+    </form>
+  </div>
+
+
+  <div>
+    <h2>Framedata</h2> 
+    <table border="1"> 
+      <thead> 
+        <tr> 
+          <th>ID</th> 
+          <th>StartUp</th> 
+          <th>Active</th> 
+          <th>Endlag</th> 
+          <th>Mobility</th>
+          <th>MoveType</th>
+          <th>LinksTo</th>
+          <th>InputType</th>
+          <th>Actions</th>
+        </tr> 
+      </thead> 
+      <tbody> 
+        <tr ng-repeat="move in moveFrameData">
+          <td><input type="text" ng-model="move.ID"></td>
+          <td><input type="text" ng-model="move.StartUp"></td>
+          <td><input type="text" ng-model="move.Active"></td>
+          <td><input type="text" ng-model="move.Endlag"></td>
+          <td><input type="text" ng-model="move.Mobility"></td>
+          <td><input type="text" ng-model="move.MoveType"></td>
+          <td><input type="text" ng-model="move.LinksTo"></td>
+          <td><input type="text" ng-model="move.InputType"></td>
+          <td>
+            <button ng-click="updateMoveF(move)">Update</button>
+            <button ng-click="deleteMoveF(move)">Delete</button>
+          </td>
+        </tr> 
+      </tbody> 
+
+    </table>
+  </div>
+  
+  <div>
+    <h2>Add New Framedata</h2>
+    <form ng-submit="addMoveF()">
+      <label for="ID">ID:</label>
+      <input type="text" id="ID" ng-model="newMoveF.ID" required>
+      <label for="startUp">StartUp Frames:</label>
+      <input type="text" id="startUp" ng-model="newMoveF.StartUp" required>
+      <label for="active">Active Frames:</label>
+      <input type="text" id="active" ng-model="newMoveF.Active" required>
+      <label for="endlag">Endlag Frames:</label>
+      <input type="text" id="endlag" ng-model="newMoveF.Endlag" required>
+      <label for="mobility">Mobility:</label>
+      <input type="text" id="mobility" ng-model="newMoveF.Mobility" required>
+      <label for="moveType">MoveType:</label>
+      <input type="text" id="moveType" ng-model="newMoveF.MoveType" required>
+      <label for="linksTo">LinksTo:</label>
+      <input type="text" id="linksTo" ng-model="newMoveF.LinksTo" required>
+      <label for="inputType">InputType:</label>
+      <input type="text" id="inputType" ng-model="newMoveF.InputType" required>
+      <button type="submit">Add Move</button>
+    </form>
+  </div>
+
+  <div>
+    <h2>Movement</h2> 
+    <table border="1"> 
+      <thead> 
+        <tr> 
+          <th>ID</th> 
+          <th>AlterSpeed</th> 
+          <th>ChangeXv</th> 
+          <th>ChangeYv</th> 
+          <th>FrontRange</th>
+          <th>Actions</th>
+        </tr> 
+      </thead> 
+      <tbody> 
+        <tr ng-repeat="move in movement"> 
+          <td><input type="text" ng-model="move.ID"></td>
+          <td><input type="text" ng-model="move.AlterSpeed"></td>
+          <td><input type="text" ng-model="move.ChangeXv"></td>
+          <td><input type="text" ng-model="move.ChangeYv"></td>
+          <td><input type="text" ng-model="move.FrontRange"></td>
+          <td>
+            <button ng-click="updateMoveM(move)">Update</button>
+            <button ng-click="deleteMoveM(move)">Delete</button>
+          </td>
+        </tr> 
+      </tbody> 
+    </table>
+  </div>
+
+  <div>
+    <h2>Add New Movement</h2>
+    <form ng-submit="addMoveM()">
+      <label for="ID">ID:</label>
+      <input type="text" id="ID" ng-model="newMoveM.ID" required>
+      <label for="alterSpeed">AlterSpeed:</label>
+      <input type="text" id="alterSpeed" ng-model="newMoveM.AlterSpeed" required>
+      <label for="changexv">ChangeXv:</label>
+      <input type="text" id="changexv" ng-model="newMoveM.ChangeXv" required>
+      <label for="changeyv">ChangeYv:</label>
+      <input type="text" id="changeyv" ng-model="newMoveM.ChangeYv" required>
+      <label for="frontRange">FrontRange:</label>
+      <input type="text" id="frontRange" ng-model="newMoveM.FrontRange" required>
+      <button type="submit">Add Move</button>
+    </form>
+  </div>
+
+  <div>
+    <h2>Regular Stats</h2> 
+    <table border="1"> 
+      <thead> 
+        <tr> 
+          <th>ID</th> 
+          <th>DMG</th> 
+          <th>BK</th> 
+          <th>RK</th> 
+          <th>BH</th>
+          <th>RH</th>
+          <th>AK</th>
+          <th>HI</th>
+          <th>TK</th>
+          <th>Actions</th>
+        </tr> 
+      </thead> 
+      <tbody>
+        <tr ng-repeat="move in moveStats">
+          <td><input type="text" ng-model="move.ID"></td>
+          <td><input type="text" ng-model="move.DMG"></td>
+          <td><input type="text" ng-model="move.BK"></td>
+          <td><input type="text" ng-model="move.RK"></td>
+          <td><input type="text" ng-model="move.BH"></td>
+          <td><input type="text" ng-model="move.RK"></td>
+          <td><input type="text" ng-model="move.AK"></td>
+          <td><input type="text" ng-model="move.HI"></td>
+          <td><input type="text" ng-model="move.TK"></td>
+          <td>
+            <button ng-click="updateMoveS(move)">Update</button>
+            <button ng-click="deleteMoveS(move)">Delete</button>
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h2>Add New Stats</h2>
+    <form ng-submit="addMoveS()">
+      <label for="ID">ID:</label>
+      <input type="text" id="ID" ng-model="newMoveS.ID" required>
+      <label for="DMG">DMG:</label>
+      <input type="text" id="DMG" ng-model="newMoveS.DMG" required>
+      <label for="BK">BK:</label>
+      <input type="text" id="BK" ng-model="newMoveS.BK" required>
+      <label for="RK">RK:</label>
+      <input type="text" id="RK" ng-model="newMoveS.RK" required>
+      <label for="BH">BH:</label>
+      <input type="text" id="BH" ng-model="newMoveS.BH" required>
+      <label for="RH">RH:</label>
+      <input type="text" id="RH" ng-model="newMoveS.RH" required>
+      <label for="AK">AK:</label>
+      <input type="text" id="AK" ng-model="newMoveS.AK" required>
+      <label for="HI">HI:</label>
+      <input type="text" id="HI" ng-model="newMoveS.HI" required>
+      <label for="TK">TK:</label>
+      <input type="text" id="TK" ng-model="newMoveS.TK" required>
+      <button type="submit">Add Move</button>
+    </form>
+  </div>
+
+  <div>
+    <h2>Alternate Stats</h2> 
+    <table border="1"> 
+      <thead> 
+        <tr> 
+          <th>ID</th> 
+          <th>DMG</th> 
+          <th>BK</th> 
+          <th>RK</th> 
+          <th>BH</th>
+          <th>RH</th>
+          <th>AK</th>
+          <th>HI</th>
+          <th>TK</th>
+          <th>Actions</th>
+        </tr> 
+      </thead> 
+      <tbody>
+        <tr ng-repeat="move in moveStatsRuby">
+          <td><input type="text" ng-model="move.ID"></td>
+          <td><input type="text" ng-model="move.DMG"></td>
+          <td><input type="text" ng-model="move.BK"></td>
+          <td><input type="text" ng-model="move.RK"></td>
+          <td><input type="text" ng-model="move.BH"></td>
+          <td><input type="text" ng-model="move.RK"></td>
+          <td><input type="text" ng-model="move.AK"></td>
+          <td><input type="text" ng-model="move.HI"></td>
+          <td><input type="text" ng-model="move.TK"></td>
+          <td>
+            <button ng-click="updateMoveR(move)">Update</button>
+            <button ng-click="deleteMoveR(move)">Delete</button>
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h2>Add New Alternate Stats</h2>
+    <form ng-submit="addMoveR()">
+      <label for="ID">ID:</label>
+      <input type="text" id="ID" ng-model="newMoveR.ID" required>
+      <label for="DMG">DMG:</label>
+      <input type="text" id="DMG" ng-model="newMoveR.DMG" required>
+      <label for="BK">BK:</label>
+      <input type="text" id="BK" ng-model="newMoveR.BK" required>
+      <label for="RK">RK:</label>
+      <input type="text" id="RK" ng-model="newMoveR.RK" required>
+      <label for="BH">BH:</label>
+      <input type="text" id="BH" ng-model="newMoveR.BH" required>
+      <label for="RH">RH:</label>
+      <input type="text" id="RH" ng-model="newMoveR.RH" required>
+      <label for="AK">AK:</label>
+      <input type="text" id="AK" ng-model="newMoveR.AK" required>
+      <label for="HI">HI:</label>
+      <input type="text" id="HI" ng-model="newMoveR.HI" required>
+      <label for="TK">TK:</label>
+      <input type="text" id="TK" ng-model="newMoveR.TK" required>
+      <button type="submit">Add Move</button>
+    </form>
+  </div>
